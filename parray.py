@@ -1,5 +1,8 @@
 import numpy as np
 
+##Reader for Probe Arrays with
+#PARRAY_T = LAGRANGE. reads in
+#one or more tracer files 
 class ParrayReader_Lagrange( object ):
 
   filename = None
@@ -65,6 +68,9 @@ class ParrayReader_Lagrange( object ):
 
       f.close()
 
+##Reader for Probe Arrays with
+#PARRAY_T = EULER. reads in
+#one or more cell Probe files
 class ParrayReader_Euler( object):
 
   filename = None
@@ -90,7 +96,7 @@ class ParrayReader_Euler( object):
     
     self.PROBE_H = np.array(map(int, f.readline().split("=")[1].split()))
     self.PROBE_ICOORD = np.array(map(float, f.readline().split("=")[1].split()))
-    #self.TIME = map(float, f.readline().split(":")[1].split())
+    
     self.CELLVOL = np.array(map(float, f.readline().split("=")[1].split()))
 
     f.readline()
@@ -130,7 +136,7 @@ class ParrayReader_Euler( object):
 
       self.PROBE_H += [np.array(map(int, f.readline().split("=")[1].split()))]
       self.PROBE_ICOORD += [np.array(map(float, f.readline().split("=")[1].split()))]
-      #self.TIME = map(float, f.readline().split(":")[1].split())
+      
       self.CELLVOL += [np.array(map(float, f.readline().split("=")[1].split()))]
 
       f.readline()
@@ -147,6 +153,10 @@ class ParrayReader_Euler( object):
     
       f.close()
 
+##Main Probe array class
+#for reading probe array outputs
+#can read several fields to same
+#array
 class Parray(ParrayReader_Lagrange,ParrayReader_Euler):
 
   def __init__(self,FILE=None,FILELIST=[],rw,TYPE="EULER",FIELDS=False):
