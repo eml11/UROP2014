@@ -102,7 +102,7 @@ class ParrayReader_Euler( object):
     f.readline()
 
     datstr = np.array(map(lambda x: x.split(), f.readlines()))
-    self.TIME = datstr[:,0]
+    self.TIME = np.array(map(float, datstr[:,0]))
 
     datstr = datstr[:,1:]
     data = []
